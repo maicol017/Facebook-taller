@@ -12,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import me.maicolgutierrez.facebook.ui.screens.FacebookRegisterScreen
+import me.maicolgutierrez.facebook.ui.screens.FeedScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,13 +20,16 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
 
-           val myNaveController = rememberNavController()
+            val myNavController = rememberNavController()
 
-            NavHost(navController = myNaveController, startDestination = "login", modifier = Modifier.fillMaxSize()){
-                composable(route = "login"){FacebookLoginScreen(myNaveController)}
-                    composable(route="register"){
-                    FacebookRegisterScreen(myNaveController)
-                }
+            NavHost(navController = myNavController, startDestination = "login", modifier = Modifier.fillMaxSize()) {
+                composable(route="login"){ FacebookLoginScreen(onClickRegister = {
+                    myNavController.navigate("register")
+                }, onClickIniciarSesion = { myNavController.navigate("feed")}) }
+                composable(route="register") { FacebookRegisterScreen(onClickBack = {
+                    myNavController.popBackStack()
+                }) }
+                composable(route="feed") { FeedScreen() }
             }
         }
     }

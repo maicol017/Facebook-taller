@@ -20,9 +20,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FacebookRegisterScreen(navController: NavController) {
+fun FacebookRegisterScreen(onClickBack : ()-> Unit) {
     var firstName by remember { mutableStateOf("") }
     var lastName by remember { mutableStateOf("") }
     var emailOrPhone by remember { mutableStateOf("") }
@@ -38,10 +39,9 @@ fun FacebookRegisterScreen(navController: NavController) {
                 title = { },
                 navigationIcon = {
                     IconButton(onClick = {
-                        navController.popBackStack()
-
+                        onClickBack()
                     }) {
-                        Text("ir atras")
+                        Text("Ir Atras")
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -205,7 +205,9 @@ fun FacebookRegisterScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(16.dp))
 
             // Ir a Iniciar sesión
-            TextButton(onClick = {}) {
+            TextButton(onClick = {
+
+            }) {
                 Text(
                     text = "¿Ya tienes una cuenta?",
                     color = FacebookBlue
