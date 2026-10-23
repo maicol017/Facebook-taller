@@ -139,7 +139,7 @@ fun FacebookLoginScreen(onClickRegister : ()-> Unit, onClickIniciarSesion : ()->
         // Botón Crear cuenta nueva
         Button(
             onClick = {
-                onClickRegister
+                onClickRegister()
             },
             modifier = Modifier
                 .fillMaxWidth()
