@@ -1,3 +1,5 @@
+package me.maicolgutierrez.facebook.ui.screens
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
@@ -16,7 +18,6 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 
 // Colores oficiales de Facebook
 val FacebookBlue = Color(0xFF1877F2)
@@ -26,8 +27,13 @@ private val FacebookBorderGray = Color(0xFFCCD0D5)
 private val FacebookTextGray = Color(0xFF606770)
 private val FacebookDarkText = Color(0xFF1C1E21)
 
+// CAMBIO (a): nuevo parámetro onClickOlvide
 @Composable
-fun FacebookLoginScreen(onClickRegister : ()-> Unit, onClickIniciarSesion : ()-> Unit) {
+fun FacebookLoginScreen(
+    onClickRegister: () -> Unit,
+    onClickIniciarSesion: () -> Unit,
+    onClickOlvide: () -> Unit
+) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
@@ -101,7 +107,8 @@ fun FacebookLoginScreen(onClickRegister : ()-> Unit, onClickIniciarSesion : ()->
         Spacer(modifier = Modifier.height(20.dp))
 
         // Link "¿Olvidaste tu contraseña?"
-        TextButton(onClick = {}) {
+        // CAMBIO (b): ahora llama a onClickOlvide
+        TextButton(onClick = onClickOlvide) {
             Text(
                 text = "¿Olvidaste tu contraseña?",
                 color = FacebookTextGray,
@@ -137,6 +144,7 @@ fun FacebookLoginScreen(onClickRegister : ()-> Unit, onClickIniciarSesion : ()->
         Spacer(modifier = Modifier.height(20.dp))
 
         // Botón Crear cuenta nueva
+        // CAMBIO (c): onClickRegister() con paréntesis para que se ejecute
         Button(
             onClick = {
                 onClickRegister()
